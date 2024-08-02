@@ -9,7 +9,7 @@ const connectDb = async () => {
             console.log("Already Connected");
             return;
         }
-        await mongoose.connect(process.env.MONGODB_URI);
+        await mongoose.connect("MONGODB_URI=mongodb+srv://nischit:vimal123@cluster0.t2qwtqn.mongodb.net/Blog?retryWrites=true&w=majority&appName=Cluster0");
         console.log("Connection Success");
     } catch (error) {
         console.log("Failed to connect");
