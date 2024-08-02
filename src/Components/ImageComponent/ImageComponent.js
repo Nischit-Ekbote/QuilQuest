@@ -7,7 +7,7 @@ const CustomImageLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-export default function ImageComponent({ src, alt, width=400, height=600 }) {
+export default function ImageComponent({ src, alt, width, height }) {
   const [error, setError] = useState(false);
 
   if (!src) return null; // or return a placeholder image

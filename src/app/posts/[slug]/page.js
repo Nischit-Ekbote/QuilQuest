@@ -23,7 +23,7 @@ async function SinglePostPage({ params }) {
     <div className={styles.container}>
       {post.img && (
         <div className={styles.imgContainer}>
-          <ImageComponent src={post.img} alt={post.alt} />
+          <ImageComponent src={post.img} alt={post.alt} width={400} height={600}/>
         </div>
       )}
       <div className={styles.textContainer}>
