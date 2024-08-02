@@ -1,6 +1,7 @@
 import Image from "next/image";
 import "./postCard.css"
 import Link from "next/link";
+import ImageComponent from "../ImageComponent/ImageComponent";
 
 
 function PostCard({post}) {
@@ -10,7 +11,8 @@ function PostCard({post}) {
 
   return (
     <div className="component">
-        <img src={post.img} alt={post.title} className="postAvatar"/>
+        <ImageComponent src={post.img} alt={post.alt}  className="postAvatar"/>
+        {/* <img src={post.img} alt={post.title} className="postAvatar"/> */}
         <p>{post.title}</p>
         <Link href={`posts/${slug}`}>Read More</Link>
     </div>
