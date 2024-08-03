@@ -1,20 +1,24 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
 
-dotenv.config();
+const MONGODB_URI = "mongodb+srv://nischit:vimal123@cluster0.t2qwtqn.mongodb.net/Blog?retryWrites=true&w=majority&appName=Cluster0";
+
+let cachedConnection = null;
 
 const connectDb = async () => {
-    try {
-        if (mongoose.connections[0].readyState) {
-            console.log("Already Connected");
-            return;
-        }
-        await mongoose.connect("MONGODB_URI=mongodb+srv://nischit:vimal123@cluster0.t2qwtqn.mongodb.net/Blog?retryWrites=true&w=majority&appName=Cluster0");
-        console.log("Connection Success");
-    } catch (error) {
-        console.log("Failed to connect");
-        throw new Error(error);
+    if (cachedConnection) {
+        return cachedConnection;
     }
-}
+
+    try {
+        const connection = await mongoose.connect(MONGODB_URI);
+
+        cachedConnection = connection;
+        console.log("MongoDB connected successfully");
+        return connection;
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
+        throw error;
+    }
+};
 
 export default connectDb;
