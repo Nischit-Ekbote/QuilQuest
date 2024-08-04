@@ -1,36 +1,57 @@
 import React, { useRef, useState } from 'react';
+import Link from 'next/link';
 import { setPosts } from '@/lib/actions'; 
 import Image from 'next/image';
 import styles from "./createPost.module.css"
+import SpaceConverter from '@/lib/spaceConvertor';
 
 const CustomImageLoader = ({ src, width, quality }) => {
     return `${src}?w=${width}&q=${quality || 75}`;
-  };
+};
 
 function Post() {
   const formRef = useRef();
   const [imgUrl, setImgUrl] = useState("");
+  const [link, setLink] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   async function handleSubmit(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
+    setIsLoading(true);
+    setError('');
 
     const formData = new FormData(formRef.current);
     const title = formData.get('title');
     const desc = formData.get('desc');
     const img = formData.get('image');
 
-    console.log({ title, desc, img });
+    if (!title || !desc || !img) {
+      setError('All fields are required');
+      setIsLoading(false);
+      return;
+    }
 
     try {
-      // Assuming setPosts is an async function that handles post creation
       const result = await setPosts({ title, desc, img });
-      console.log(result);
-      if (result.msg) {
+      if (result.success) {
         formRef.current.reset(); 
+        const slug = SpaceConverter(title);
         setImgUrl("");
+        setLink(
+          <div>
+            <p>Post Created Successfully</p>
+            <Link href={`/posts/${slug}`}>View Post</Link>
+          </div>
+        );
+      } else {
+        setError('Failed to create post');
       }
     } catch (error) {
       console.error('Error creating post:', error);
+      setError('An error occurred while creating the post');
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -46,37 +67,56 @@ function Post() {
               name="image" 
               value={imgUrl} 
               onChange={(evt) => setImgUrl(evt.target.value)} 
+              aria-describedby="imageHelp"
             />
-          </div>
+            {/* <small id="imageHelp" className={styles.formHelp}>Enter a valid image URL</small> */}
+          </div> 
           {imgUrl && (
-              <div>
-                  <Image 
-                  loader={CustomImageLoader}
-                  src={imgUrl} 
-                  alt="Image Preview" 
-                  width={300} 
-                  height={500} 
-                  onError={() => setImgUrl('')} // Reset the image URL if the image fails to load
-                  />
-              </div>
-              )}
+            <div className={styles.imagePreview}>
+              <Image 
+                loader={CustomImageLoader}
+                src={imgUrl} 
+                alt="Image Preview" 
+                width={300} 
+                height={200} 
+                onError={() => setImgUrl('')} 
+                layout="responsive"
+              />
+            </div>
+          )}
         </div>
 
         <div className={styles.textContainer}>
           <div>
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" name="title" />
+            <input 
+              type="text" 
+              id="title" 
+              name="title" 
+              required 
+              aria-describedby="titleHelp"
+            />
+            <small id="titleHelp" className={styles.formHelp}>Enter a title for your post</small>
           </div>
 
           <div className={styles.descBox}>
-            <label htmlFor="desc" >Description</label>
-            <input type="text" id="desc" name="desc" />
+            <label htmlFor="desc">Description</label>
+            <textarea 
+              id="desc" 
+              name="desc" 
+              required
+              aria-describedby="descHelp"
+            ></textarea>
+            <small id="descHelp" className={styles.formHelp}>Provide a description for your post</small>
           </div>
-          <button type="submit">Submit</button>
-
+          
+          <button type="submit" disabled={isLoading} className={styles.submitButton}>
+            {isLoading ? 'Submitting...' : 'Submit'}
+          </button>
         </div>
         
-
+        {error && <p className={styles.error}>{error}</p>}
+        {link && <div className={styles.successLink}>{link}</div>}
       </form>
     </div>
   );

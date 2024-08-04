@@ -12,11 +12,13 @@
     flex-direction: column;
 }
 
+
+
 .container > form{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
-    width:38%;
+    /* width:38%;  */
     height: 100%;
 }
 
@@ -24,6 +26,10 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.container > form > div > div > input{
+    width: 300px;
 }
 
 .textContainer > div{
@@ -45,4 +51,13 @@
 .descBox > input{
     height: 100px;
 
+}
+
+@media only screen and (max-width: 1000px){
+    .container > form{
+        display: grid;
+        grid-template-columns: 1fr ;
+        
+    }
+    
 }
