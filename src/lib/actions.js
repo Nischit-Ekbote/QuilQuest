@@ -5,7 +5,6 @@ import Post from "../models/posts";
 import User from "../models/users";
 import SpaceConverter from "./spaceConvertor";
 
-
 export default async function getPosts(){
   try {
     await connectDb();
@@ -56,9 +55,9 @@ export async function setUser({ name, email, password }){
 export async function validateData({ name, password }) {
   try {
     await connectDb();
-    
+
     const user = await User.findOne({ name, password }); 
-    
+
     if (user) {
       return { msg: 'Login Successful' }; 
     } else {
@@ -69,5 +68,3 @@ export async function validateData({ name, password }) {
     throw err; 
   }
 }
-
-
