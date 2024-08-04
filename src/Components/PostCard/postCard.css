@@ -1,16 +1,21 @@
 
 
 .component{
-    width: 250px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 p{
-    width: 100%;
+    text-align: center;
+    width: 250px;
     margin: 0px;
 }
 
 a{
     /* text-decoration: none; */
+    text-align: left;
     color: black;
 }
 a:hover{

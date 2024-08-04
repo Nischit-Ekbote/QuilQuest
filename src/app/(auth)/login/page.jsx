@@ -61,7 +61,7 @@ export default function LoginForm() {
       </div>
       : <form onSubmit={handleSubmit}>
           <h1>Login</h1>
-        <div>
+        <div className={styles.loginBox}>
           <label htmlFor="name">Name</label>
           <input 
             type="text" 

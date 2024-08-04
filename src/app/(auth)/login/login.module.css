@@ -8,20 +8,23 @@
 .component > form{
     display: grid;  
     gap: 20px;
-    width: 20%;
+    width: 312px;
       
     /* text-align: center; */
-    padding: 100px;
+    /* padding: 100px; */
     place-items:center;
 }
-
+/* 
 .component > form > h1 {
+    width:300px;
     align-items: center;
     color: rgb(45, 167, 0);
-}
+} */
+
 
 
 .component > form > div > label{
+    width: 300px;
     padding-left: 10px;
     font-weight: bold;
     /* background-color: green; */
@@ -29,7 +32,7 @@
 }
 
 .component > form > div > input {
-    width: 100%;
+    width: 300px;
     height: 2rem;
     padding-left: 10px;
     border: none;
@@ -58,3 +61,22 @@
 .component> div > a{
     margin: 20px 0px 0px 0px;
 }
+
+@media only screen and (max-width: 500px) {
+    .mainDiv > h2{
+      font-size:20px;
+      width: 70%;
+      line-height: 20px;
+      /* color: red; */
+    
+    }
+    
+    .container{
+      /* width: 50%; */
+      place-content: center center;
+  
+    }
+    .mainDiv > p{
+      width: 50%;
+    }
+  }

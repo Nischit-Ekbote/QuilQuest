@@ -7,10 +7,12 @@ async function Page() {
         const posts = await getPosts();
         
         return (
-            <div className={styles.container}>
-                {posts.map((post) => (
-                    <PostCard key={post._id} post={post} />
-                ))}
+            <div className={styles.main}>
+                <div className={styles.container}>
+                    {posts.map((post) => (
+                        <PostCard key={post._id} post={post} />
+                    ))}
+                </div>
             </div>
         )
     } catch (error) {

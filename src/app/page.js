@@ -5,10 +5,10 @@ import connectDb from "@/lib/connectDb";
 import Post from "@/models/posts"; 
 
 
-export default async function Home() {
+export default async function Home() { 
   
   return (
-    <div style={{ height: "calc(100vh - 100px)", display: "grid", placeItems: "center" }}>
+    <div className={styles.container}>
       <div className={styles.mainDiv}>
         <h2>Welcome to </h2><br />
         <span>QUIL-QUEST</span><br />

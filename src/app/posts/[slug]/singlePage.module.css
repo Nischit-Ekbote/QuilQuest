@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   gap: 100px;
+  padding:0px 40px ;
 }
 
 .textContainer{
@@ -10,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 28%;
+  width: 90%;
   height: 100%;
 }
 
@@ -27,4 +28,25 @@
     border: 2mm ridge rgb(45, 167, 0);
     color: black;
     font-weight: bold;
+    margin-bottom: 30px;
+}
+
+
+@media only screen and (max-width: 799px){
+  .container{
+    flex-direction: column;
+  }
+  
+}
+
+@media only screen and (max-width : 400px)
+{
+  .imgContainer{
+    display: none;
+  }
+}
+
+.image > img{
+  height: 10px;
+  width: 10px;
 }

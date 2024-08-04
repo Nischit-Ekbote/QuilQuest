@@ -11,8 +11,8 @@ function PostCard({post}) {
 
   return (
     <div className="component">
-        <ImageComponent src={post.img} alt={post.alt} width={250} height={350}  />
-        {/* <img src={post.img} alt={post.title} className="postAvatar"/> */}
+        <ImageComponent src={post.img} alt={post.title} width={250} height={350}  />
+
         <p>{post.title}</p>
         <Link href={`posts/${slug}`}>Read More</Link>
     </div>
