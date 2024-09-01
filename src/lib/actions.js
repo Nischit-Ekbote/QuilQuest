@@ -5,11 +5,7 @@ import Post from "../models/posts";
 import User from "../models/users";
 import SpaceConverter from "./spaceConvertor";
 
-<<<<<<< HEAD
 export default async function getPosts({}){
-=======
-export default async function getPosts(){
->>>>>>> 816c372357fd5636a327ecc1f7c1a56d5c311aed
   try {
     await connectDb();
     const res = await Post.find({});
@@ -83,8 +79,4 @@ export async function validateData({ name, password }) {
     console.error('Error validating data:', err);
     throw err; 
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 816c372357fd5636a327ecc1f7c1a56d5c311aed
