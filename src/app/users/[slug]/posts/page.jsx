@@ -1,5 +1,5 @@
 
-import { getPosts, getPostsByUser } from '@/lib/actions';
+import getPostsByUser from '@/lib/actions';
 import ServerSideUserPostRender from './ServerSideUserPostRender';
 import PostCard from '@/Components/PostCard/PostCard';
 import styles from './posts.module.css'
