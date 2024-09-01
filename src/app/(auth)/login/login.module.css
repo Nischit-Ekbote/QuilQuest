@@ -37,6 +37,7 @@
     padding-left: 10px;
     border: none;
     background-color: #e6f3ff; /* Light blue background for all inputs */
+    color: green;
 }
 
 
@@ -48,13 +49,21 @@
 }
 
 .component > form > button , .component> div > a {
+    background-color: black;
     font-size:20px;
     padding:  5px 20px;
     text-decoration: none;
     border: 2mm ridge rgb(45, 167, 0);
-    color: black;
-    font-weight: bold;
+    /* color: black; */
+    /* font-weight: bold; */
     width: fit-content;
+    transition:0.1s;
+}
+
+.component a:hover , .component > form > button:hover{
+    background-color: green;
+    color: white;
+
 }
 
 

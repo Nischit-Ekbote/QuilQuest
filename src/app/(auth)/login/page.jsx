@@ -57,7 +57,7 @@ export default function LoginForm() {
         justifyContent:"center"
       }}>
         <p>Welcome, {userName}! You are now logged in.</p>
-        <Link href='/posts/create'>Create Post</Link>
+        <Link href={`/users/${userName}`}>DashBoard</Link>
       </div>
       : <form onSubmit={handleSubmit}>
           <h1>Login</h1>

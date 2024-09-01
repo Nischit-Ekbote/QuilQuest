@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   gap: 100px;
-  padding:20px 40px ;
+  padding:0px 40px ;
 }
 
 .textContainer{
@@ -26,6 +26,7 @@
     padding:  5px 20px;
     text-decoration: none;
     border: 2mm ridge rgb(45, 167, 0);
+    color: black;
     font-weight: bold;
     margin-bottom: 30px;
 }

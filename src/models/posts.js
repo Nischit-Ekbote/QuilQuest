@@ -16,6 +16,9 @@ const postSchema = new Schema({
     },
     slug:{
         type:String
+    },
+    user:{
+        type:String
     }
 });
 

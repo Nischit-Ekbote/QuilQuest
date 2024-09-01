@@ -9,9 +9,11 @@ const CustomImageLoader = ({ src, width, quality }) => {
     return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-function Post() {
+function Post({user}) {
+  
   const formRef = useRef();
   const [imgUrl, setImgUrl] = useState("");
+  const [file, setFile] = useState(null); // New state variable to store the uploaded file
   const [link, setLink] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -25,19 +27,21 @@ function Post() {
     const title = formData.get('title');
     const desc = formData.get('desc');
     const img = formData.get('image');
-
-    if (!title || !desc || !img) {
+    // const user = slug;
+    console.log(user)
+    if ( !title || !desc ) {
       setError('All fields are required');
       setIsLoading(false);
       return;
     }
 
     try {
-      const result = await setPosts({ title, desc, img });
+      const result = await setPosts({ title, desc, img, user });
       if (result.success) {
         formRef.current.reset(); 
         const slug = SpaceConverter(title);
         setImgUrl("");
+        setFile(null); // Reset the file state
         setLink(
           <div>
             <p>Post Created Successfully</p>
@@ -55,32 +59,42 @@ function Post() {
     }
   }
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+    setImgUrl(URL.createObjectURL(file)); // Create a URL for the uploaded file
+  };
+
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} ref={formRef}>
         <div className={styles.imgBlock}>
           <div>
             <label htmlFor="image">Image URL</label>
+            <div>
             <input 
               type="text" 
               id="image" 
               name="image" 
+              width={200}
               value={imgUrl} 
               onChange={(evt) => setImgUrl(evt.target.value)} 
               aria-describedby="imageHelp"
             />
             {/* <small id="imageHelp" className={styles.formHelp}>Enter a valid image URL</small> */}
+            <input type="file" name="image" accept="image/*" onChange={handleImageChange}></input>
+            </div>
           </div> 
-          {imgUrl && (
+          {(imgUrl || file) && (
             <div className={styles.imagePreview}>
               <Image 
                 loader={CustomImageLoader}
-                src={imgUrl} 
+                src={imgUrl || URL.createObjectURL(file)} 
                 alt="Image Preview" 
                 width={300} 
-                height={200} 
+                height={400} 
                 onError={() => setImgUrl('')} 
-                layout="responsive"
+                // layout="responsive"
               />
             </div>
           )}
@@ -106,13 +120,19 @@ function Post() {
               name="desc" 
               required
               aria-describedby="descHelp"
+              rows={20}
+              style={{
+                 resize: "none"
+              }}
             ></textarea>
             <small id="descHelp" className={styles.formHelp}>Provide a description for your post</small>
           </div>
           
-          <button type="submit" disabled={isLoading} className={styles.submitButton}>
-            {isLoading ? 'Submitting...' : 'Submit'}
-          </button>
+          <div className={styles.btnDiv}>
+            <button type="submit" disabled={isLoading} className={styles.submitButton}>
+              {isLoading ? 'Submitting...' : 'Submit'}
+            </button>
+          </div>
         </div>
         
         {error && <p className={styles.error}>{error}</p>}

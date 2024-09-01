@@ -1,24 +1,15 @@
-import PostCard from "@/Components/PostCard/PostCard"
-import getPosts from "@/lib/actions"
-import styles from "./posts.module.css"
+import { useUser } from '@/context/UserContext';
+import { ServerPosts } from './ServerPosts'
+import ClientsidePost from "./clientsidePost";
 
-async function Page() {
-    try {
-        const posts = await getPosts();
-        
-        return (
-            <div className={styles.main}>
-                <div className={styles.container}>
-                    {posts.map((post) => (
-                        <PostCard key={post._id} post={post} />
-                    ))}
-                </div>
-            </div>
-        )
-    } catch (error) {
-        console.error("Failed to fetch posts:", error);
+
+export default async function Page() {
+
+    const posts = await ServerPosts();
+    
+    if (!posts) {
         return <div>Failed to load posts. Please try again later.</div>
     }
-}
 
-export default Page
+    return <ClientsidePost posts={posts} />
+}

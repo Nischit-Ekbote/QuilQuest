@@ -1,13 +1,12 @@
 'use client'
-
-import Image from "next/image";
 import Link from "next/link";
 import styles from "./navBar.module.css"
 import { usePathname } from "next/navigation";
-import { useUser } from '@/context/UserContext';  // Make sure this path is correct
+import { useUser } from '@/context/UserContext';
 
 function NavBar() {
-    const { isUser, setIsUser } = useUser();  // This is the correct way to use the hook
+    const { isUser, setIsUser ,userName } = useUser();  // This is the correct way to use the hook
+    const { query, setQuery } = useUser();
     const path = usePathname();
 
     return (
@@ -16,10 +15,13 @@ function NavBar() {
                  <Link href='/'>QuilQuest</Link>
             </div>
             <div className={`${styles.linksBlock} ${styles.active}`}>
-                {isUser && path !=="/posts/create" &&  <Link href='/posts/create'>Create Post</Link>}
+                {isUser &&   <Link href={`/users/${userName}/posts/create`}>Create Post</Link>}
+
                 { !isUser && <Link href='/register'>Register</Link>}
-                { isUser ? 
-                    <button onClick={() => setIsUser(false)}>Logout</button> : 
+                { isUser ? <>
+                    <Link href={`/users/${userName}`}>{userName}</Link>
+                    <button onClick={() => setIsUser(false)}>Logout</button>
+                </> :
                     <Link href='/login'>Login</Link>
                 }
             </div>

@@ -7,9 +7,10 @@ const UserContext = createContext();
 export function UserProvider({ children }) {
   const [isUser, setIsUser] = useState(false);
   const [userName, setUserName] = useState('');
+  const [query, setQuery] = useState('');
 
   return (
-    <UserContext.Provider value={{ isUser, setIsUser, userName, setUserName }}>
+    <UserContext.Provider value={{ isUser, setIsUser, userName, setUserName, query, setQuery}}>
       {children}
     </UserContext.Provider>
   );

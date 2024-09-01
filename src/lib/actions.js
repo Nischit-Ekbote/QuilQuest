@@ -5,11 +5,21 @@ import Post from "../models/posts";
 import User from "../models/users";
 import SpaceConverter from "./spaceConvertor";
 
-
-export default async function getPosts(){
+export default async function getPosts({}){
   try {
     await connectDb();
     const res = await Post.find({});
+    return res;
+  } catch (error) {
+    console.error("Failed to get posts", error);
+    throw error;
+  }
+};
+
+export async function getPostsByUser({user=''}){
+  try {
+    await connectDb();
+    const res = await Post.find({'user': user});
     return res;
   } catch (error) {
     console.error("Failed to get posts", error);
@@ -28,11 +38,12 @@ export async function getPost({slug}){
   }
 };
 
-export async function setPosts({ title, desc, img }){
+export async function setPosts({ title, desc, img, user }){
+  
   const slug = SpaceConverter(title);
   try {
     await connectDb();
-    const newPost = await new Post({ title, desc, img ,slug});
+    const newPost = await new Post({ title, desc, img, slug, user});
     await newPost.save();
     return { success: true };
   } catch (err) {
@@ -56,9 +67,9 @@ export async function setUser({ name, email, password }){
 export async function validateData({ name, password }) {
   try {
     await connectDb();
-    
+
     const user = await User.findOne({ name, password }); 
-    
+
     if (user) {
       return { msg: 'Login Successful' }; 
     } else {
@@ -69,5 +80,3 @@ export async function validateData({ name, password }) {
     throw err; 
   }
 }
-
-
