@@ -18,7 +18,7 @@
 .meta__data{
     width: fit-content;
     color: black;
-    background-color: #000;
+    /* background-color: #000; */
     border-radius: 20px;
     overflow: hidden;
 }
