@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = "mongodb+srv://nischit:vimal123@cluster0.t2qwtqn.mongodb.net/Blog?retryWrites=true&w=majority&appName=Cluster0";
+const MONGODB_URI = process.env.MONGODB_URI || "";
 
 let cachedConnection = null;
 
