@@ -1,4 +1,3 @@
-import { useUser } from '@/context/UserContext';
 import { ServerPosts } from './ServerPosts'
 import ClientsidePost from "./clientsidePost";
 
